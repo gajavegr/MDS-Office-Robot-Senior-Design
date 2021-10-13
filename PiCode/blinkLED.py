@@ -3,8 +3,8 @@ import time
 
 LED_PIN = 8
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(LED_PIN, GPIO.OUT)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(LED_PIN, GPIO.OUT,initial=GPIO.LOW)
 
 try:
     while True:
