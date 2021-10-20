@@ -6,7 +6,7 @@ bool left = false;
 bool right = false;
 
 int blue = 3;
-int yellow = 5;
+int yellow = 6;
  
 void setup() {
   Serial.begin(9600);
