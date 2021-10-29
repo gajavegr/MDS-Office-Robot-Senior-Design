@@ -21,9 +21,6 @@ try:
                 print "right"
             elif char == curses.KEY_LEFT:
                 print "left"
-            elif char == 'x':
-                print "stop"    
-                
              
 finally:
     #Close down curses properly, inc turn echo back on!

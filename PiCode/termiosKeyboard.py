@@ -1,4 +1,4 @@
-import curses
+import tty, sys, termios
 
 import RPi.GPIO as GPIO
 import time
@@ -14,10 +14,39 @@ GPIO.setup(BACK, GPIO.OUT,initial=GPIO.HIGH)
 GPIO.setup(LEFT, GPIO.OUT,initial=GPIO.HIGH)
 GPIO.setup(RIGHT, GPIO.OUT,initial=GPIO.HIGH)
 
-screen = curses.initscr()
-curses.noecho() 
-curses.cbreak()
-screen.keypad(True)
+def getch():
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
+
+def forward():
+    GPIO.output(FORWARD, GPIO.LOW)
+    GPIO.output(BACK, GPIO.HIGH)
+    GPIO.output(LEFT, GPIO.HIGH)
+    GPIO.output(RIGHT, GPIO.HIGH)
+
+def left():
+    GPIO.output(FORWARD, GPIO.HIGH)
+    GPIO.output(BACK, GPIO.HIGH)
+    GPIO.output(LEFT, GPIO.LOW)
+    GPIO.output(RIGHT, GPIO.HIGH)
+
+def right():
+    GPIO.output(FORWARD, GPIO.HIGH)
+    GPIO.output(BACK, GPIO.HIGH)
+    GPIO.output(LEFT, GPIO.HIGH)
+    GPIO.output(RIGHT, GPIO.LOW)
+
+def back():
+    GPIO.output(FORWARD, GPIO.HIGH)
+    GPIO.output(BACK, GPIO.LOW)
+    GPIO.output(LEFT, GPIO.HIGH)
+    GPIO.output(RIGHT, GPIO.HIGH)
 
 def off():
     time.sleep(0.01)
@@ -26,54 +55,30 @@ def off():
     GPIO.output(LEFT, GPIO.HIGH)
     GPIO.output(RIGHT, GPIO.HIGH)
 
-def forward():
-    GPIO.output(FORWARD, GPIO.LOW)
-    GPIO.output(BACK, GPIO.HIGH)
-    GPIO.output(LEFT, GPIO.HIGH)
-    GPIO.output(RIGHT, GPIO.HIGH)
-    # off()
-
-def left():
-    GPIO.output(FORWARD, GPIO.HIGH)
-    GPIO.output(BACK, GPIO.HIGH)
-    GPIO.output(LEFT, GPIO.LOW)
-    GPIO.output(RIGHT, GPIO.HIGH)
-    # off()
-
-def right():
-    GPIO.output(FORWARD, GPIO.HIGH)
-    GPIO.output(BACK, GPIO.HIGH)
-    GPIO.output(LEFT, GPIO.HIGH)
-    GPIO.output(RIGHT, GPIO.LOW)
-    # off()
-
-def back():
-    GPIO.output(FORWARD, GPIO.HIGH)
-    GPIO.output(BACK, GPIO.LOW)
-    GPIO.output(LEFT, GPIO.HIGH)
-    GPIO.output(RIGHT, GPIO.HIGH)
-    # off()
-
+    
 while 1:
-    off()
-    char = screen.getch()
-    # char = inp
+    char = getch()
     print("You pressed", char)
-    if char == ord('q'):
-        break
-    elif char == curses.KEY_UP:
+    #forward
+    if(char == "w"):
         print("forward")
         forward()
-    elif char == curses.KEY_DOWN:
-        print("back")
-        back()
-    elif char == curses.KEY_RIGHT:
-        print("right")
-        right()
-    elif char == curses.KEY_LEFT:
+    if(char == "a"):
         print("left")
         left()
-    # char = ""
-    # inp = ""
+    if(char == "s"):
+        print("back")
+        back()
+    if(char == "d"):
+        print("right")
+        right()
+    if(char == " "):
+        print("off")
+        off()
+    if(char == "x"):
+        print("Program Ended")
+        break
+
+    char = ""
 
 GPIO.cleanup()
