@@ -5,8 +5,20 @@ bool backward = false;
 bool left = false;
 bool right = false;
 
-int blue = 3;
-int yellow = 6;
+int fwd = 10;
+int bck = 11;
+int lft = 12;
+int rt = 13;
+
+int rb = 2;
+int bb = 3;
+int yb = 4;
+int gb = 5;
+
+int rf = 5;
+int bf = 7;
+int yf = 8;
+int gf = 9;
  
 void setup() {
   Serial.begin(9600);
