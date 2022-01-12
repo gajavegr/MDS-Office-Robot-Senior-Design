@@ -1,6 +1,9 @@
 import socket
 
-ip = "192.168.xxx.yyy" # IP of Raspberry Pi
+# ip = "137.112.45.15" # IP of Raspberry Pi
+ip = "137.112.234.14" # IP of Raspberry Pi
+# hostname = socket.gethostname()
+# ip_address = socket.gethostbyname(hostname)
 
 # start server
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
