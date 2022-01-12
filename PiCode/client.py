@@ -2,7 +2,8 @@
 
 import socket
 
-ip = "137.112.45.15" # IP of Raspberry Pi
+# ip = "137.112.45.15" # IP of Raspberry Pi
+s = socket.socket()
 
 # HOST = '137.112.44.139'  # The server's hostname or IP address
 HOST = '137.112.233.12'  # The server's hostname or IP address
