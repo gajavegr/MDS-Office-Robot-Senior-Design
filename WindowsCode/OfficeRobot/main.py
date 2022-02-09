@@ -281,7 +281,7 @@ class MyApp(App):
 
     def build(self):
         Window.clearcolor = (0.7,0.7,0.7,1)
-        Window.fullscreen = 'auto'
+        # Window.fullscreen = 'auto'
         return Canvas()
 
 if __name__ == "__main__":
