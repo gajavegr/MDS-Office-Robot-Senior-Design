@@ -42,7 +42,7 @@ if __name__ == '__main__':
         x = "%04d"% abs(int(sys.argv[1]))
         # print(f"4 character negative x: {x}")
         x = "1" + x
-        print(f"5 character x: {x}")
+        # print(f"5 character x: {x}")
 
     else:
         x = "%05d"% int(sys.argv[1])
@@ -51,12 +51,13 @@ if __name__ == '__main__':
         print(sys.argv[2])
         y = "%04d"% abs(int(sys.argv[2]))
         y = "1" + y
-        print(f"5 character y: {y}")
+        # print(f"5 character y: {y}")
     else:
         y = "%05d"% int(sys.argv[2])
     
-    data = f"{x}{y}"
-    print(f"data: {data}")
+    # data = f"{x}{y}"
+    data = ""+x+y
+    # print(f"data: {data}")
     t1 = threading.Thread(target=Communication.writeData, args=(data,))
     # Communication.writeData(data)
     t1.start()
