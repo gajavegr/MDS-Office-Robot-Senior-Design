@@ -11,7 +11,7 @@ class ArduinoComm:
         self.ser.reset_input_buffer()
     
     def writeData(self,data):
-        self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+        # self.ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
         self.ser.reset_input_buffer()
         # print(data)
         # print(str(data).encode('utf-8'))
