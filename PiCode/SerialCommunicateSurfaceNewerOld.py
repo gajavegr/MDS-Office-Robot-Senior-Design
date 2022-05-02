@@ -25,17 +25,9 @@ class ArduinoComm:
             time.sleep(0.1)
             if len(line) > 0:
                 print("received!")
-                if "DONE" in line:
-                    print("DONE")
-                    break
+                break
             i+=1
-        while (True):
-            # print("in while loop 2")
-            lines = str(self.ser.readline().decode('utf-8').rstrip())
-            if "DONE" == str(lines):
-                 break
-                # return "DONE"
-        # print(line)
+        print(line)
 
 
 if __name__ == '__main__':
@@ -83,5 +75,5 @@ if __name__ == '__main__':
     Communication.writeData(data)
     # t1.start()
     print("Transmitting coordinates to Arduino...")
-    print("DONE")
+
     # t1.join()
