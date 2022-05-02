@@ -1,10 +1,14 @@
 import paramiko
 import tkinter as tk
 
-host = "gajavegr-pi.wlan.rose-hulman.edu"
+# host = "gajavegr-pi.wlan.rose-hulman.edu"
+# port = 22
+# username = "pi"
+# password = "password"
+host = "INSTEC168-SPRO5"
 port = 22
-username = "pi"
-password = "password"
+username = "localmgr"
+password = "change"
 
 command = "ls"
 
@@ -21,7 +25,7 @@ def write_slogan():
     command = "echo hi"
     stdin, stdout, stderr = ssh.exec_command(command)
     lines = stdout.readlines()
-    print(f"{lines} (from pi)")  
+    print(f"{lines} (from surface)")  
 
 root = tk.Tk()
 frame = tk.Frame(root)

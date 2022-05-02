@@ -73,6 +73,8 @@ class Canvas(Widget):
             # self.password = "password"
             # self.sshConn = SSHCommunication(username=self.username,password=self.password,host=self.host,port=self.port)
             self.sshConn = SSHCommunication()
+            self.currX = 96
+            self.currY = 230
 
 
     def goTo272(self):
@@ -80,17 +82,26 @@ class Canvas(Widget):
         newY = 300
         self.ellipse.pos = (newX,newY)
         print("Go to interview room 272")
-        self.communicateDestination(newX,newY)
+        distances = self.getDistanceToGo(newX,newY)
+        self.communicateDestination(distances(0),distances(1))
         # t1 = threading.Thread(target=self.communicateDestination, args=(newX,newY,))
         # t1.start()
         # t1.join()
+
+    def getDistanceToGo(self,newX,newY):
+        distanceX = newX-self.currX
+        distanceY = newY-self.currY
+        self.currX = newX
+        self.currY = newY
+        return [distanceX,distanceY]
 
     def goTo273(self):
         newX = 420
         newY = 300
         self.ellipse.pos = (newX,newY)
         print("Go to office 273")
-        self.communicateDestination(newX,newY)
+        distances = self.getDistanceToGo(newX,newY)
+        self.communicateDestination(distances(0),distances(1))
         # t2 = threading.Thread(target=self.communicateDestination, args=(newX,newY,))
         # t2.start()
         # t2.join()
@@ -100,21 +111,25 @@ class Canvas(Widget):
         newY = 260
         self.ellipse.pos = (newX,newY)
         print("Go to work station 266A")
-        self.communicateDestination(newX,newY)
+        # distances = self.getDistanceToGo(newX,newY)
+        # self.communicateDestination(distances(0),distances(1))
+        self.communicateDestination(200,0)
 
     def goTo266B(self):
         newX = 990
         newY = 450
         self.ellipse.pos = (newX,newY)
         print("Go to work roon 266B")
-        self.communicateDestination(newX,newY)
+        distances = self.getDistanceToGo(newX,newY)
+        self.communicateDestination(distances(0),distances(1))
 
     def goTo271(self):
         newX = 190
         newY = 170
         self.ellipse.pos = (newX,newY)
         print("Go to interview room 271")
-        self.communicateDestination(newX,newY)
+        distances = self.getDistanceToGo(newX,newY)
+        self.communicateDestination(distances(0),distances(1))
 
     def goTo270(self):
         newX = 330
@@ -181,7 +196,7 @@ class Canvas(Widget):
 
 
     def press(self, keyboard, keycode, text, modifiers):
-        if keycode[1] == 'a':
+        if keycode[1] == 'left':
             x, y = self.ellipse.pos
             w, h = self.ellipse.size
             inc = dp(10)
@@ -194,8 +209,9 @@ class Canvas(Widget):
 
             self.ellipse.pos = (x, y)
             print("X is: ",x)
+            self.communicateDestination(2,0)
 
-        if keycode[1] == 'd':
+        if keycode[1] == 'right':
             x, y = self.ellipse.pos
             w, h = self.ellipse.size
             inc = dp(3)
@@ -209,8 +225,9 @@ class Canvas(Widget):
 
             self.ellipse.pos = (x, y)
             print("X is: ", x)
+            self.communicateDestination(-2,0)
 
-        if keycode[1] == 'w':
+        if keycode[1] == 'up':
             x, y = self.ellipse.pos
             x=int(x)
             y=int(y)
@@ -228,8 +245,9 @@ class Canvas(Widget):
                 self.ellipse.pos = (x, y)
 
             print("Y is: ", y)
+            self.communicateDestination(0,2)
 
-        if keycode[1] == 's':
+        if keycode[1] == 'down':
             x, y = self.ellipse.pos
             w, h = self.ellipse.size
             inc = dp(10)
@@ -250,6 +268,7 @@ class Canvas(Widget):
                 self.ellipse.pos = (x, y)
             
             print("Y is: ", y)
+            self.communicateDestination(0,-2)
 
         return True
 
@@ -272,9 +291,12 @@ class Canvas(Widget):
 
     def communicateDestination(self,newX,newY):
         # print(self.sshConn.executeCommand("python3 MDS\ Robot\ Project/PiCode/KeyboardControl/termiosKeyboard.py"))
-        print("in communicate destination")
-        command = f"python3 MDS\ Robot\ Project/PiCode/SerialCommunicate.py {newX} {newY} -u"
-
+        print(f"in communicate destination {newX} {newY}")
+        # command = f"python3 MDS\ Robot\ Project/PiCode/SerialCommunicate.py {newX} {newY} -u" #old pi command
+        # command = f"python3 Documents/MDS-Office-Robot-Senior-Design/PiCode/SerialCommunicate.py {newX} {newY} -u"
+        command = f"python3 Documents/MDS-Office-Robot-Senior-Design/PiCode/SerialCommunicate.py {newX} {newY}"
+        print(command)
+        # self.sshConn.connect()
         [print(str(line)) for line in self.sshConn.executeCommand(command)]
 
 class MyApp(App):
