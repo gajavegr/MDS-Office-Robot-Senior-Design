@@ -37,42 +37,31 @@ if __name__ == '__main__':
     # data = f"{sys.argv[1]:04}{sys.argv[2]:04}"
     x = 0
     y = 0
-    z = 0
-    if len(sys.argv) == 2:
-        z = "1"
-        print(f'Spinning {sys.argv[1]}')
-        if int(sys.argv[1]) < 0:
-            x = "%03d"% abs(int(sys.argv[1]))
-            x = "1" + x
-        else:
-            x = "%04d"% int(sys.argv[1])
-        x = x + "0"
-        y = "00000"
+    if int(sys.argv[1]) < 0:
+        print(sys.argv[1])
+        x = "%04d"% abs(int(sys.argv[1]))
+        # print(f"4 character negative x: {x}")
+        x = "1" + x
+        # print(f"5 character x: {x}")
+
     else:
-        z = "0"
-        if int(sys.argv[1]) < 0:
-            print(sys.argv[1])
-            x = "%04d"% abs(int(sys.argv[1]))
-            # print(f"4 character negative x: {x}")
-            x = "1" + x
-            # print(f"5 character x: {x}")
+        x = "%05d"% int(sys.argv[1])
 
-        else:
-            x = "%05d"% int(sys.argv[1])
-
-        if int(sys.argv[2]) < 0:
-            print(sys.argv[2])
-            y = "%04d"% abs(int(sys.argv[2]))
-            y = "1" + y
-            # print(f"5 character y: {y}")
-        else:
-            y = "%05d"% int(sys.argv[2])
+    if int(sys.argv[2]) < 0:
+        print(sys.argv[2])
+        y = "%04d"% abs(int(sys.argv[2]))
+        y = "1" + y
+        # print(f"5 character y: {y}")
+    else:
+        y = "%05d"% int(sys.argv[2])
     
     # data = f"{x}{y}"
-    data = ""+x+y+z
+    data = ""+x+y
     print(f"data: {data}")
-    # t1 = threading.Thread(target=Communication.writeData, args=(data,))
+    ###Writing Data to Arduino###
     Communication.writeData(data)
+    ###Threading Experimentation###
+    # t1 = threading.Thread(target=Communication.writeData, args=(data,))
     # t1.start()
     print("Transmitting coordinates to Arduino...")
 
