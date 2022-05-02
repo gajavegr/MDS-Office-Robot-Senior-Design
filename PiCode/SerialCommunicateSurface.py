@@ -57,10 +57,12 @@ if __name__ == '__main__':
     
     # data = f"{x}{y}"
     data = ""+x+y
-    # print(f"data: {data}")
-    t1 = threading.Thread(target=Communication.writeData, args=(data,))
-    # Communication.writeData(data)
-    t1.start()
+    print(f"data: {data}")
+    ###Writing Data to Arduino###
+    Communication.writeData(data)
+    ###Threading Experimentation###
+    # t1 = threading.Thread(target=Communication.writeData, args=(data,))
+    # t1.start()
     print("Transmitting coordinates to Arduino...")
 
-    t1.join()
+    # t1.join()
